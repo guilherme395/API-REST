@@ -37,9 +37,10 @@ module.exports = {
         let placa = req.body.placa;
 
         if (modelo && placa) {
-            await CarroService.insert(modelo, placa);
+            let CarroCodigo = await CarroService.insert(modelo, placa);
             res.status(200).send({
                 sucessMessage: {
+                    Codigo: CarroCodigo,
                     Modelo: modelo,
                     Placa: placa
                 }
