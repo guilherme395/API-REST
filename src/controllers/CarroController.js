@@ -46,7 +46,7 @@ module.exports = {
             });
         } else {
             res.status(404).send({
-                errorMessage: "POR ALGUM MOTIVO, OS CAMPOS NÃO FORAM INSERIDOS NO BANCO DE DADOS !!!"
+                errorMessage: "VEICULO NÃO CADASTRADO, DADOS INSUFICIENTE !!!"
             });
         }
         res.json();
