@@ -3,9 +3,11 @@ const db = require("../db");
 module.exports = {
     searchAll: () => {
         return new Promise((aceito, rejeitado) => {
-
             db.query("SELECT * FROM carros", (error, results) => {
-                if (error) { rejeitado(error); return; }
+                if (error) {
+                    rejeitado(error);
+                    return;
+                }
                 aceito(results);
             });
         });
@@ -13,7 +15,6 @@ module.exports = {
 
     searchOne: (codigo) => {
         return new Promise((aceito, rejeitado) => {
-
             db.query("SELECT * FROM carros WHERE codigo = ?", [codigo], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 if (results.length > 0) { //vai verificar se retornou mais de 1 e pegar o 1
@@ -26,11 +27,13 @@ module.exports = {
     },
     insert: (modelo, placa) => {
         return new Promise((aceito, rejeitado) => {
-
             db.query('INSERT INTO carros (modelo, placa) VALUES (?, ?)',
                 [modelo, placa],
                 (error, results) => {
-                    if (error) { rejeitado(error); return; }
+                    if (error) {
+                        rejeitado(error);
+                        return;
+                    }
                     aceito(results.insertCodigo); //insertId
                 }
             );
@@ -41,7 +44,10 @@ module.exports = {
             db.query("UPDATE carros SET modelo = ?, placa = ? WHERE codigo = ?",
                 [modelo, placa, codigo],
                 (error, results) => {
-                    if (error) { rejeitado(error); return; }
+                    if (error) {
+                        rejeitado(error);
+                        return;
+                    }
                     aceito(results);
                 }
             );
