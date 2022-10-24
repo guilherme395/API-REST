@@ -7,6 +7,8 @@ const cors = require("cors")
 const app = express();
 
 const CarRoute = require("./routes/cars-route");
+const CadUserRoute = require("./routes/CadUser-route");
+
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -14,6 +16,7 @@ app.use(morgan("dev"));
 app.use(cors())
 
 app.use("/api/carros", CarRoute);
+app.use("/api/cadastrar", CadUserRoute);
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
