@@ -40,9 +40,8 @@ module.exports = {
             let CarroCodigo = await CarroService.insert(modelo, placa);
             res.status(200).send({
                 Sucess: {
-                    Message: "Veiculo Inserido com Sucesso!!!",
+                    Message: "Veiculo Inserido com sucesso !!!",
                     VeiculoInserido: {
-                        Codigo: CarroCodigo,
                         Modelo: modelo,
                         Placa: placa
                     }
