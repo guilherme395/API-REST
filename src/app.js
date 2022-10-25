@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    const erro = new Error("Url Invalid");
+    const erro = new Error("Url Invalida");
     erro.status = 404;
     next(erro);
 });
