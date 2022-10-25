@@ -1,6 +1,5 @@
 const express = require ("express");
 const router = express.Router()
-
 const CadUserController = require("../controllers/CadUserController");
 
 router.post("/", CadUserController.Create);

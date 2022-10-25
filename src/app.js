@@ -9,7 +9,6 @@ const app = express();
 const CarRoute = require("./routes/cars-route");
 const CadUserRoute = require("./routes/CadUser-route");
 
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
