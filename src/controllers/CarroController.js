@@ -25,7 +25,7 @@ module.exports = {
                 }
             });
         } else {
-            res.status(401).send({
+            res.status(400).send({
                 Error: {
                     Message: "Veiculo Não Encontrado, Verifique o Codigo, e Tente Novamente!"
                 }
@@ -50,7 +50,7 @@ module.exports = {
                 }
             });
         } else {
-            res.status(401).send({
+            res.status(400).send({
                 Error: {
                     Message: "Veiculo Não Cadastrado, Dados Insuficiente!"
                 }
@@ -75,7 +75,7 @@ module.exports = {
                 }
             });
         } else {
-            res.status(401).send({
+            res.status(400).send({
                 Error: {
                     Message: "Por Algum Motivo os Dados Não Foram Atualizados!"
                 }
@@ -92,7 +92,7 @@ module.exports = {
                 }
             });
         } else {
-            res.status(401).send({
+            res.status(400).send({
                 Error: {
                     Message: "Erro ao Deletar, Verifique o Codigo, e Tente Novamente!",
                 }
