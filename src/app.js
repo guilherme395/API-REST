@@ -6,13 +6,13 @@ const morgan = require("morgan");
 const cors = require("cors")
 const app = express();
 
-const CarRoute = require("./routes/cars-route");
-const CadUserRoute = require("./routes/CadUser-route");
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 app.use(cors())
+
+const CarRoute = require("./routes/cars-route");
+const CadUserRoute = require("./routes/CadUser-route");
 
 app.use("/api/carros", CarRoute);
 app.use("/api/cadastrar", CadUserRoute);
@@ -32,7 +32,7 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    const erro = new Error("Url Invalida");
+    const erro = new Error("A URL Solicitada Não Existe!");
     erro.status = 404;
     next(erro);
 });
