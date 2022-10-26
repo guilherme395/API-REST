@@ -4,44 +4,45 @@ module.exports = {
 
     searchAll: async (req, res) => {
         let objectJson = [];
-        let carros = await CarroService.searchAll();
-        for (let i in carros) {
+        let car = await CarroService.searchAll();
+        for (let i in car) {
             objectJson.push({
-                codigo: carros[i].codigo,
-                modelo: carros[i].modelo,
-                placa: carros[i].placa
+                codigo: car[i].codigo,
+                modelo: car[i].modelo,
+                placa: car[i].placa
             });
         }
-
         res.json(objectJson);
     },
-
     searchOne: async (req, res) => {
         let codigo = req.params.codigo; //para pegar o parametro
-        let carro = await CarroService.searchOne(codigo);
-        if (carro) {
-            res.status(200).send({
-                sucessMessage: carro
+        let car = await CarroService.searchOne(codigo);
+        if (car) {
+            res.status(201).send({
+                Success: {
+                    Message: "Sucesso, Aqui Esta o que Você Procura!",
+                    Vehicle: car
+                }
             });
         } else {
-            res.status(404).send({
-                errorMessage: "CARRO NÃO ENCONTRADO !!!"
+            res.status(401).send({
+                Error: {
+                    Message: "Veiculo Não Encontrado, Verifique o Codigo, e Tente Novamente!"
+                }
             });
         }
-
         res.json();
     },
-
     insert: async (req, res) => {
         let modelo = req.body.modelo;
         let placa = req.body.placa;
 
         if (modelo && placa) {
             let CarroCodigo = await CarroService.insert(modelo, placa);
-            res.status(200).send({
-                Sucess: {
-                    Message: "Veiculo Inserido com sucesso !!!",
-                    VeiculoInserido: {
+            res.status(201).send({
+                Success: {
+                    Message: "Veiculo Inserido com Sucesso !!!",
+                    vehicleInserted: {
                         codigo: CarroCodigo,
                         Modelo: modelo,
                         Placa: placa
@@ -49,24 +50,23 @@ module.exports = {
                 }
             });
         } else {
-            res.status(404).send({
-                Error:{
-                    Message: "VEICULO NÃO CADASTRADO, DADOS INSUFICIENTE !!!"
-                } 
+            res.status(401).send({
+                Error: {
+                    Message: "Veiculo Não Cadastrado, Dados Insuficiente!"
+                }
             });
         }
         res.json();
     },
-
     alter: async (req, res) => {
         let codigo = req.params.codigo;
         let modelo = req.body.modelo;
         let placa = req.body.placa;
         if (codigo && modelo && placa) {
             await CarroService.alter(codigo, modelo, placa);
-            res.status(200).send({
-                Sucess: {
-                    Message: "Veiculo Alterado com sucesso !!!",
+            res.status(201).send({
+                Success: {
+                    Message: "Veiculo Alterado Com Sucesso!",
                     VeiculoInserido: {
                         Codigo: codigo,
                         Modelo: modelo,
@@ -75,9 +75,9 @@ module.exports = {
                 }
             });
         } else {
-            res.status(404).send({
+            res.status(401).send({
                 Error: {
-                    Message: "POR ALGUM MOTIVO, OS DADOS NÃO FORAM ATUALIZADOS !!!"
+                    Message: "Por Algum Motivo os Dados Não Foram Atualizados!"
                 }
             });
         }
@@ -86,12 +86,16 @@ module.exports = {
     delete: async (req, res) => {
         const result = await CarroService.delete(req.params.codigo);
         if (result.affectedRows != 0) {
-            res.status(200).send({
-                sucessMessage: "EXCLUIDO COM SUCESSO",
+            res.status(201).send({
+                Success: {
+                    Message: "Carro Excluido Com Sucesso!",
+                }
             });
         } else {
-            res.status(404).send({
-                errorMessage: "ERRO AO delete, VERIFIQUE O CODIGO PASSADO POR PARAMETRO !!!",
+            res.status(401).send({
+                Error: {
+                    Message: "Erro ao Deletar, Verifique o Codigo, e Tente Novamente!",
+                }
             });
         }
         res.json();
