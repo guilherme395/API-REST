@@ -3,8 +3,7 @@ const db = require("../Connection/db");
 module.exports = {
     searchAll: () => {
         return new Promise((aceito, rejeitado) => {
-
-            db.query('SELECT * FROM carros', (error, results) => {
+            db.query("SELECT * FROM carros", (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results);
             });
@@ -12,7 +11,7 @@ module.exports = {
     },
     searchOne: (codigo) => {
         return new Promise((aceito, rejeitado) => {
-            db.query('SELECT * FROM carros WHERE codigo = ?', [codigo], (error, results) => {
+            db.query("SELECT * FROM carros WHERE codigo = ?", [codigo], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 if (results.length > 0) {
                     aceito(results[0]);
@@ -24,7 +23,7 @@ module.exports = {
     },
     insert: (modelo, placa) => {
         return new Promise((aceito, rejeitado) => {
-            db.query('INSERT INTO carros (modelo, placa) VALUES (?, ?)',
+            db.query("INSERT INTO carros (modelo, placa) VALUES (?, ?)",
                 [modelo, placa],
                 (error, results) => {
                     if (error) { rejeitado(error); return; }
@@ -35,7 +34,7 @@ module.exports = {
     },
     alter: (codigo, modelo, placa) => {
         return new Promise((aceito, rejeitado) => {
-            db.query('UPDATE carros SET modelo = ?, placa = ? WHERE codigo = ?',
+            db.query("UPDATE carros SET modelo = ?, placa = ? WHERE codigo = ?",
                 [modelo, placa, codigo],
                 (error, results) => {
                     if (error) { rejeitado(error); return; }
@@ -46,7 +45,7 @@ module.exports = {
     },
     delete: (codigo) => {
         return new Promise((aceito, rejeitado) => {
-            db.query('DELETE FROM carros WHERE codigo = ?', [codigo], (error, results) => {
+            db.query("DELETE FROM carros WHERE codigo = ?", [codigo], (error, results) => {
                 if (error) { rejeitado(error); return; }
                 aceito(results);
             });

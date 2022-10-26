@@ -18,7 +18,7 @@ module.exports = {
         let codigo = req.params.codigo; //para pegar o parametro
         let car = await CarroService.searchOne(codigo);
         if (car) {
-            res.status(201).send({
+            res.status(200).send({
                 Success: {
                     Message: "Sucesso, Aqui Esta o que Você Procura!",
                     Vehicle: car
@@ -77,7 +77,7 @@ module.exports = {
         } else {
             res.status(400).send({
                 Error: {
-                    Message: "Por Algum Motivo os Dados Não Foram Atualizados!"
+                    Message: "Por Algum Motivo os Dados do Veiculo Não Foram Atualizados!"
                 }
             });
         }
@@ -86,15 +86,15 @@ module.exports = {
     delete: async (req, res) => {
         const result = await CarroService.delete(req.params.codigo);
         if (result.affectedRows != 0) {
-            res.status(201).send({
+            res.status(200).send({
                 Success: {
-                    Message: "Carro Excluido Com Sucesso!",
+                    Message: "Veiculo Excluido Com Sucesso!",
                 }
             });
         } else {
             res.status(400).send({
                 Error: {
-                    Message: "Erro ao Deletar, Verifique o Codigo, e Tente Novamente!",
+                    Message: "Erro ao Deletar o Veiculo, Verifique o Codigo, e Tente Novamente!",
                 }
             });
         }
