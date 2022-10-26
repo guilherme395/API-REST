@@ -42,6 +42,7 @@ module.exports = {
                 Sucess: {
                     Message: "Veiculo Inserido com sucesso !!!",
                     VeiculoInserido: {
+                        codigo: CarroCodigo,
                         Modelo: modelo,
                         Placa: placa
                     }
