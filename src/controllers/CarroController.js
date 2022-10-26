@@ -6,9 +6,9 @@ module.exports = {
         let car = await CarroService.searchAll();
         for (let i in car) {
             objectJson.push({
-                codigo: car[i].codigo,
-                modelo: car[i].modelo,
-                placa: car[i].placa
+                Codigo: car[i].codigo,
+                Modelo: car[i].modelo,
+                Placa: car[i].placa
             });
         }
         res.json(objectJson);

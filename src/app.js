@@ -12,10 +12,11 @@ app.use(morgan("dev"));
 app.use(cors())
 
 const CarRoute = require("./routes/cars-route");
-const CadUserRoute = require("./routes/CadUser-route");
+const ProductsRoute = require("./routes/products-route");
 
 app.use("/api/carros", CarRoute);
-app.use("/api/cadastrar", CadUserRoute);
+app.use("/api/produtos", ProductsRoute);
+
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
