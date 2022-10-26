@@ -1,7 +1,6 @@
 const CarroService = require("../services/CarroService");
 
 module.exports = {
-
     searchAll: async (req, res) => {
         let objectJson = [];
         let car = await CarroService.searchAll();
@@ -15,7 +14,7 @@ module.exports = {
         res.json(objectJson);
     },
     searchOne: async (req, res) => {
-        let codigo = req.params.codigo; //para pegar o parametro
+        let codigo = req.params.codigo;
         let car = await CarroService.searchOne(codigo);
         if (car) {
             res.status(200).send({
@@ -36,7 +35,6 @@ module.exports = {
     insert: async (req, res) => {
         let modelo = req.body.modelo;
         let placa = req.body.placa;
-
         if (modelo && placa) {
             let CarroCodigo = await CarroService.insert(modelo, placa);
             res.status(201).send({
