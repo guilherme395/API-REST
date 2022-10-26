@@ -7,8 +7,8 @@ module.exports = {
         for (let i in Product) {
             objectJson.push({
                 Codigo: Product[i].codigo,
-                Produto: Product[i].prduto,
-                Descricao: Product[i].descicao,
+                Produto: Product[i].produto,
+                Descricao: Product[i].descricao,
                 Valor: Product[i].valor,
             });
         }
@@ -68,7 +68,7 @@ module.exports = {
             await ProductsService.Alter(Codigo, Produto, Descricao, Valor);
             res.status(200).send({
                 Success: {
-                    Message: "Produto Alterador com Sucesso!",
+                    Message: "Produto Alterado com Sucesso!",
                     ProductAltered: {
                         Codigo: Codigo,
                         Produto: Produto,
