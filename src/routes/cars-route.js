@@ -7,5 +7,6 @@ router.patch("/:codigo", CarroController.searchOne);
 router.post("/", CarroController.insert);
 router.put("/:codigo", CarroController.alter);
 router.delete("/:codigo", CarroController.delete);
+router.delete("/", CarroController.deleteAll);
 
 module.exports = router

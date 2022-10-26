@@ -98,4 +98,21 @@ module.exports = {
         }
         res.json();
     },
+    deleteAll: async (req, res) => {
+        const result = await CarroService.deleteAll();
+        if (result.affectedRows != 0) {
+            res.status(200).send({
+                Success: {
+                    Message: "Todos os Veiculos Foram Excluidos Com Sucesso!",
+                }
+            });
+        } else {
+            res.status(400).send({
+                Error: {
+                    Message: "Erro ao Deletar Todos os Veiculos!",
+                }
+            });
+        }
+        res.json();
+    },
 }

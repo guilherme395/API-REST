@@ -50,5 +50,13 @@ module.exports = {
                 aceito(results);
             });
         });
+    },
+    deleteAll: () => {
+        return new Promise((aceito, rejeitado) => {
+            db.query("DELETE FROM carros", (error, results) => {
+                if (error) { rejeitado(error); return; }
+                aceito(results);
+            });
+        });
     }
 };
