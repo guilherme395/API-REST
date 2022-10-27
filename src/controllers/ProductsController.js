@@ -16,7 +16,7 @@ module.exports = {
     },
     SearchOne: async (req, res) => {
         let codigo = req.params.idProduct;
-        let Product = await ProductsService.SearchOne(codigo);
+        const Product = await ProductsService.SearchOne(codigo);
         if (Product) {
             res.status(200).send({
                 Success: {
@@ -27,7 +27,7 @@ module.exports = {
         } else {
             res.status(400).send({
                 Error: {
-                    Message: `Erro ao Busca o Produto com o Codigo ${codigo} !`
+                    Message: `Erro ao Busca o Produto com o Codigo ${codigo}`
                 }
             });
         }
@@ -35,21 +35,29 @@ module.exports = {
     },
     Insert: async (req, res) => {
         let Produto = req.body.produto;
-        let Descricao = req.body.descicao;
+        let Descricao = req.body.descricao;
         let Valor = req.body.valor;
         if (Produto && Descricao && Valor) {
-            let codProduct = await ProductsService.Insert(Produto, Descricao, Valor);
-            res.status(201).send({
-                Success: {
-                    Message: "Produto Criado Com Sucesso!",
-                    ProductInserted: {
-                        Codigo: codProduct,
-                        Produto: Produto,
-                        Descricao: Descricao,
-                        Valor: Valor
+            const result = await ProductsService.Insert(Produto, Descricao, Valor);
+            if (result.affectedRows > 0) {
+                res.status(201).send({
+                    Success: {
+                        Message: "Produto Criado Com Sucesso!",
+                        ProductInserted: {
+                            Codigo: result.insertId,
+                            Produto: Produto,
+                            Descricao: Descricao,
+                            Valor: Valor
+                        },
                     }
-                }
-            });
+                });
+            } else {
+                res.status(500).send({
+                    Error: {
+                        Message: "O Produto Não Foi Inserido no Banco de Dados!"
+                    }
+                });
+            }
         } else {
             res.status(400).send({
                 Error: {
@@ -62,21 +70,29 @@ module.exports = {
     Alter: async (req, res) => {
         let Codigo = req.params.idProduct;
         let Produto = req.body.produto;
-        let Descricao = req.body.descicao;
+        let Descricao = req.body.descricao;
         let Valor = req.body.valor;
         if (Codigo && Produto && Descricao && Valor) {
-            await ProductsService.Alter(Codigo, Produto, Descricao, Valor);
-            res.status(200).send({
-                Success: {
-                    Message: "Produto Alterado com Sucesso!",
-                    ProductAltered: {
-                        Codigo: Codigo,
-                        Produto: Produto,
-                        Descricao: Descricao,
-                        Valor: Valor
+            const result = await ProductsService.Alter(Codigo, Produto, Descricao, Valor);
+            if (result.affectedRows > 0) {
+                res.status(200).send({
+                    Success: {
+                        Message: "Produto Alterado com Sucesso!",
+                        ProductAltered: {
+                            Codigo: Codigo,
+                            Produto: Produto,
+                            Descricao: Descricao,
+                            Valor: Valor
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                res.status(500).send({
+                    Error: {
+                        Message: "Nenhum Produto Foi Alterado!"
+                    }
+                });
+            }
         } else {
             res.status(400).send({
                 Error: {

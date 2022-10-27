@@ -25,7 +25,7 @@ module.exports = {
         return new Promise((aceito, rejeitado) => {
             db.query("INSERT INTO produtos (produto, descricao, valor) VALUES (?, ?, ?)", [Produto, Descricao, Valor], (error, results) => {
                 if (error) { rejeitado(error); return; }
-                aceito(results.insertId);
+                aceito(results);
             });
         });
     },
