@@ -74,7 +74,7 @@ module.exports = {
         let Valor = req.body.valor;
         if (Codigo && Produto && Descricao && Valor) {
             const result = await ProductsService.Alter(Codigo, Produto, Descricao, Valor);
-            if (result.affectedRows > 0) {
+            if (result.affectedRows != 0) {
                 res.status(200).send({
                     Success: {
                         Message: "Produto Alterado com Sucesso!",

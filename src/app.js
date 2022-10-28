@@ -13,9 +13,12 @@ app.use(cors())
 
 const CarRoute = require("./routes/cars-route");
 const ProductsRoute = require("./routes/products-route");
+const CadUserRoute = require("./routes/CadUser-route");
 
-app.use("/api/carros", CarRoute);
-app.use("/api/produtos", ProductsRoute);
+
+app.use("/api/v1/carros", CarRoute);
+app.use("/api/v1/produtos", ProductsRoute);
+app.use("/api/v1/cadastrar", CadUserRoute);
 
 
 app.use((req, res, next) => {
@@ -33,8 +36,8 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
-    const erro = new Error("A URL Solicitada Não Existe!");
     erro.status = 404;
+    const erro = new Error("A URL Solicitada Não Existe!");
     next(erro);
 });
 

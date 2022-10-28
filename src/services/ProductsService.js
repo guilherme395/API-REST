@@ -29,7 +29,7 @@ module.exports = {
             });
         });
     },
-    Alter: (Produto, Descricao, Valor, Codigo) => {
+    Alter: (Codigo, Produto, Descricao, Valor) => {
         return new Promise((aceito, rejeitado) => {
             db.query("UPDATE produtos SET produto = ?, descricao = ?, valor = ? WHERE codigo = ?", [Produto, Descricao, Valor, Codigo], (error, results) => {
                 if (error) { rejeitado(error); return; }
