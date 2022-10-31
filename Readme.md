@@ -1,4 +1,4 @@
-<h1>API-REST</h1>
+<h1>REST-API</h1>
 
 > Status: Developing ⚠️
 
@@ -11,8 +11,8 @@
 
 ## ACTIONS
 
-* Car CRUD
-* Product CRUD
+* Car => Create, Read, Update, Delete
+* Product => Create, Read, Update, Delete
 
 ## TECHNOLOGIES USED
 
