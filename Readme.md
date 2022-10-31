@@ -6,8 +6,8 @@
 
 ## ROUTES WORKING AT THIS FIRST MOMENT
 
-+ api/carros/
-+ api/produtos/
++ api/v1/carros/
++ api/v1/produtos/
 
 ## ACTIONS
 
