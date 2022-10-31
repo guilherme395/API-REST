@@ -9,15 +9,15 @@ CREATE TABLE `carros` (
 
 CREATE TABLE `produtos` (
     `codigo` int(11) NOT NULL,
-    `produto` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-    `descricao` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+    `produto` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+    `descricao` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
     `valor` float NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE `usuarios` (
     `codigo` int(11) NOT NULL,
-    `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-    `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+    `name` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+    `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
     `password` varchar(32) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
