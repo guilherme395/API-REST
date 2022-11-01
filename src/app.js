@@ -13,9 +13,11 @@ app.use(cors())
 
 const CarRoute = require("./routes/cars-route");
 const ProductsRoute = require("./routes/products-route");
+const CadUserRouter = require("./routes/cadUser-route");
 
 app.use("/api/v1/carros", CarRoute);
 app.use("/api/v1/produtos", ProductsRoute);
+app.use("/api/v1/user/register", CadUserRouter);
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
