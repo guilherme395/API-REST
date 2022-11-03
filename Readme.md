@@ -8,7 +8,7 @@
 
 + api/v1/carros/
 + api/v1/produtos/
-+ /api/v1/user/register/
++ api/v1/user/register/
 
 ## ACTIONS
 
