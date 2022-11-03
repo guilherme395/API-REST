@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const CadUserController = require("../controllers/CadUserController");
+const UserController = require("../controllers/UserController");
 
-router.post("/", CadUserController.Insert);
+router.post("/", UserController.Insert);
 
 module.exports = router;

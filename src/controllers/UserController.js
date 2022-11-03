@@ -1,4 +1,4 @@
-const CadUserService = require("../services/CadUserService");
+const UserService = require("../services/UserService");
 
 module.exports = {
     Insert: async (req, res) => {
@@ -6,7 +6,7 @@ module.exports = {
         let Email = req.body.email;
         let Senha = req.body.password;
         if (Nome && Email && Senha) {
-            const result = await CadUserService.Insert(Nome, Email, Senha);
+            const result = await UserService.Insert(Nome, Email, Senha);
             if (result.affectedRows != 0) {
                 res.status(201).send({
                     Success: {
