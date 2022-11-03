@@ -1,4 +1,4 @@
-const db = require("../Connection/db");
+const db = require("../connection/db");
 
 module.exports = {
     SearchAll: () => {
