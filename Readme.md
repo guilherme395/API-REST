@@ -8,11 +8,13 @@
 
 + api/v1/carros/
 + api/v1/produtos/
++ /api/v1/user/register/
 
 ## ACTIONS
 
 * Car => Create, Read, Update, Delete
 * Product => Create, Read, Update, Delete
+* User => Create.
 
 ## TECHNOLOGIES USED
 
