@@ -33,5 +33,34 @@ module.exports = {
             });
         }
         res.json();
+    },
+    Login: async (req, res) => {
+        Email = req.body.email;
+        Senha = req.body.password;
+
+        if (Email && Senha) {
+            const result = await UserService.Login(Email, Senha);
+            if (result.affectedRows != 0) {
+                res.status(200).send({
+                    Success: {
+                        Message: "Usuario Autenticado!",
+                        result: result
+                    }
+                });
+            } else {
+                res.status(400).send({
+                    Error: {
+                        Message: "Usuario Não Autenticado!"
+                    }
+                });
+            }
+        } else {
+            res.status(400).send({
+                Error: {
+                    Message: "Email ou Senha Incompleto!"
+                }
+            })
+        }
+        res.json();
     }
 }

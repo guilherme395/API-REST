@@ -17,7 +17,8 @@ const UserRouter = require("./routes/User-route");
 
 app.use("/api/v1/carros", CarRoute);
 app.use("/api/v1/produtos", ProductsRoute);
-app.use("/api/v1/user/register", UserRouter);
+app.use("/api/v1/user", UserRouter);
+app.use("/api/v1/user", UserRouter);
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
