@@ -17,6 +17,14 @@ class userModel {
 		}
 	}
 
+	async getUserByEmail(email) {
+		try {
+			return await conn("users").where({ email }).first();
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
 	async updateUser({ id, name, email, password }) {
 		try {
 			await conn("users").where({ id }).update({ name, email, password });

@@ -14,6 +14,16 @@ class userController {
 		}
 
 		try {
+			const existingUser = await userModel.getUserByEmail(email);
+
+			if (existingUser) {
+				return res.status(400).json({
+					success: false,
+					message: "O email já está em uso",
+					data: null,
+				});
+			}
+
 			const userId = await userModel.createUser({
 				name,
 				email,
