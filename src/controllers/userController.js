@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import userModel from "../models/userModel.js";
 
 class userController {
@@ -17,19 +18,20 @@ class userController {
 			const existingUser = await userModel.getUserByEmail(email);
 
 			if (existingUser) {
-				return res.status(400).json({
+				return res.status(409).json({
 					success: false,
 					message: "O email já está em uso",
 					data: null,
 				});
 			}
 
+			const hashedPassword = await bcrypt.hash(password, 10);
 			const userId = await userModel.createUser({
 				name,
 				email,
-				password,
+				password: hashedPassword,
 			});
-			const user = await userModel.getUser(userId[0]);
+			const user = await userModel.getUser(userId);
 
 			res.status(201).json({
 				success: true,
@@ -39,7 +41,8 @@ class userController {
 		} catch (error) {
 			res.status(500).json({
 				success: false,
-				message: `Erro Interno no Servidor. Erro: ${error.message}`,
+				message: `Erro interno no servidor. Por favor, tente novamente mais tarde.`,
+				error: error.message,
 				data: null,
 			});
 		}
@@ -75,7 +78,8 @@ class userController {
 		} catch (error) {
 			res.status(500).json({
 				success: false,
-				message: `Erro Interno no Servidor. Erro: ${error.message}`,
+				message: `Erro interno no servidor. Por favor, tente novamente mais tarde.`,
+				error: error.message,
 				data: null,
 			});
 		}
@@ -94,7 +98,13 @@ class userController {
 		}
 
 		try {
-			await userModel.updateUser({ id, name, email, password });
+			const hashedPassword = await bcrypt.hash(password, 10);
+			await userModel.updateUser({
+				id,
+				name,
+				email,
+				password: hashedPassword,
+			});
 			const updatedUser = await userModel.getUser(id);
 
 			res.status(200).json({
@@ -105,7 +115,8 @@ class userController {
 		} catch (error) {
 			res.status(500).json({
 				success: false,
-				message: `Erro Interno no Servidor. Erro: ${error.message}`,
+				message: `Erro interno no servidor. Por favor, tente novamente mais tarde.`,
+				error: error.message,
 				data: null,
 			});
 		}
@@ -132,7 +143,8 @@ class userController {
 		} catch (error) {
 			res.status(500).json({
 				success: false,
-				message: `Erro Interno no Servidor. Erro: ${error.message}`,
+				message: `Erro interno no servidor. Por favor, tente novamente mais tarde.`,
+				error: error.message,
 				data: null,
 			});
 		}
@@ -149,7 +161,44 @@ class userController {
 		} catch (error) {
 			res.status(500).json({
 				success: false,
-				message: `Erro Interno no Servidor. Erro: ${error.message}`,
+				message: `Erro interno no servidor. Por favor, tente novamente mais tarde.`,
+				error: error.message,
+				data: null,
+			});
+		}
+	}
+
+	async authenticateUser(req, res) {
+		const { email, password } = req.body;
+
+		if (!email || !password) {
+			return res.status(400).json({
+				success: false,
+				message: "Os campos 'email' e 'password' são obrigatórios",
+				data: null,
+			});
+		}
+
+		try {
+			const user = await userModel.authenticateUser(email, password);
+			if (user) {
+				res.status(200).json({
+					success: true,
+					message: "Autenticação bem-sucedida",
+					data: user,
+				});
+			} else {
+				res.status(401).json({
+					success: false,
+					message: "Credenciais inválidas",
+					data: null,
+				});
+			}
+		} catch (error) {
+			res.status(500).json({
+				success: false,
+				message: `Erro interno no servidor. Por favor, tente novamente mais tarde.`,
+				error: error.message,
 				data: null,
 			});
 		}

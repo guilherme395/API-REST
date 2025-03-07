@@ -1,9 +1,13 @@
 import conn from "./connection.js";
+import bcrypt from "bcrypt";
 
 class userModel {
 	async createUser({ name, email, password }) {
 		try {
-			await conn("users").insert({ name, email, password });
+			const [userId] = await conn("users")
+				.insert({ name, email, password })
+				.returning("id");
+			return userId;
 		} catch (error) {
 			throw new Error(error);
 		}
@@ -11,7 +15,9 @@ class userModel {
 
 	async getUser(id) {
 		try {
-			return await conn("users").where({ id }).first();
+			const user = await conn("users").where({ id }).first();
+			if (user) delete user.password;
+			return user;
 		} catch (error) {
 			throw new Error(error);
 		}
@@ -19,7 +25,9 @@ class userModel {
 
 	async getUserByEmail(email) {
 		try {
-			return await conn("users").where({ email }).first();
+			const user = await conn("users").where({ email }).first();
+			if (user) delete user.password;
+			return user;
 		} catch (error) {
 			throw new Error(error);
 		}
@@ -43,7 +51,22 @@ class userModel {
 
 	async listUsers() {
 		try {
-			return await conn("users").select("*");
+			const users = await conn("users").select("*");
+			users.forEach((user) => delete user.password);
+			return users;
+		} catch (error) {
+			throw new Error(error);
+		}
+	}
+
+	async authenticateUser(email, password) {
+		try {
+			const user = await conn("users").where({ email }).first();
+			if (user && (await bcrypt.compare(password, user.password))) {
+				delete user.password;
+				return user;
+			}
+			return null;
 		} catch (error) {
 			throw new Error(error);
 		}
