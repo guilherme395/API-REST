@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import userModel from "../models/userModel.js";
 
 class userController {
@@ -33,10 +34,16 @@ class userController {
 			});
 			const user = await userModel.getUser(userId);
 
+			const token = jwt.sign(
+				{ id: user.id, name: user.name, email: user.email },
+				process.env.SECRET_KEY,
+				{ expiresIn: "1h" }
+			);
+
 			res.status(201).json({
 				success: true,
 				message: "Usuário criado com sucesso",
-				data: user,
+				data: { user, token },
 			});
 		} catch (error) {
 			res.status(500).json({
@@ -182,10 +189,15 @@ class userController {
 		try {
 			const user = await userModel.authenticateUser(email, password);
 			if (user) {
+				const token = jwt.sign(
+					{ id: user.id, name: user.name, email: user.email },
+					process.env.SECRET_KEY,
+					{ expiresIn: "1h" }
+				);
 				res.status(200).json({
 					success: true,
 					message: "Autenticação bem-sucedida",
-					data: user,
+					data: { user, token },
 				});
 			} else {
 				res.status(401).json({
