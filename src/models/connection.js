@@ -1,9 +1,10 @@
-const knex = require("knex");
+import "dotenv/config";
+import knex from "knex";
 
 class Connection {
 	constructor() {
 		this.connection = knex({
-			client: process.env.CLIENT,
+			client: process.env.DB_CLIENT,
 			connection: {
 				host: process.env.DB_HOST,
 				port: process.env.DB_PORT,

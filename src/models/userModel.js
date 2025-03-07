@@ -1,4 +1,4 @@
-const conn = require("./connection.js");
+import conn from "./connection.js";
 
 class userModel {
 	async createUser({ name, email, password }) {
