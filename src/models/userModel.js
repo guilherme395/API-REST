@@ -4,10 +4,12 @@ import bcrypt from "bcrypt";
 class userModel {
 	async createUser({ name, email, password }) {
 		try {
-			const [userId] = await conn("users")
-				.insert({ name, email, password })
-				.returning("id");
-			return userId;
+			const [user] = await conn("users").insert({
+				name,
+				email,
+				password,
+			});
+			return user;
 		} catch (error) {
 			throw new Error(error);
 		}
