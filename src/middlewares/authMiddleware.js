@@ -1,6 +1,6 @@
 require("dotenv/config");
 const jwt = require("jsonwebtoken");
-const userModel = require("../models/userModel.cjs");
+const userModel = require("../models/userModel.js");
 
 class authMiddleware {
   async validateToken(req, res, next) {

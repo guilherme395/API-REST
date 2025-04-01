@@ -1,4 +1,4 @@
-const conn = require("./connection/conn.cjs");
+const conn = require("./connection/conn.js");
 const bcrypt = require("bcrypt");
 
 class userModel {
