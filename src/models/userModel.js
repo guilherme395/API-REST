@@ -1,5 +1,5 @@
-import conn from "./connection/conn.js";
-import bcrypt from "bcrypt";
+const conn = require("./connection/conn.cjs");
+const bcrypt = require("bcrypt");
 
 class userModel {
   async createUser({ name, email, password, role_id = 2 }) {
@@ -76,4 +76,4 @@ class userModel {
   }
 }
 
-export default new userModel();
+module.exports = new userModel();
