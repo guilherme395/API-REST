@@ -1,4 +1,4 @@
-import conn from "./connection.js";
+import conn from "./connection/conn.js";
 import bcrypt from "bcrypt";
 
 class userModel {
